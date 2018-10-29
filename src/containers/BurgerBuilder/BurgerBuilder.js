@@ -7,7 +7,6 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
-
 import axios from '../../axios-orders';
 
 const INGREDIENTS_PRICE = {
@@ -47,21 +46,11 @@ class BurgerBuilder extends Component {
   }
 
   checkOutBurger = _ => {
-    this.setState({loading: true})
-    const order = {
+    this.setState({loading: true});
+    this.props.history.push({pathname: '/checkout',
       ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        email: 'test@data.com',
-        address: '123144'
-      },
-      delivery: 'fastest'
-    }
-
-    axios.post('/oders.json', order)
-      .then(response => console.log(response))
-      .catch(error => console.log('Error: ', error))
-      .finally(_ => this.setState({loading: false, purchasing: false}));
+      totalPrice: this.state.totalPrice
+    });
   }
 
   ingredientMutipler = (type, mul) => {
@@ -109,7 +98,6 @@ class BurgerBuilder extends Component {
       : !this.state.error
         ? <Spinner/>
         : <p style = {{textAlign: 'center'}}> Error while loading burger state </p>
-
 
     return (
       <Aux>

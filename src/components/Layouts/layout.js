@@ -7,12 +7,15 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import classes from './Layout.css'
 
 class Layout extends Component {
-  state = {
-    showDrawer: false
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDrawer: false
+    }
   }
 
   handleShowDrawer = _ => {
-    console.log('Closing backdrop');
     this.setState( prevState => {
       return {showDrawer: !prevState.showDrawer};
     })
